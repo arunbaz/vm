@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  frontend:
+    image: arunbaz/sports-manager:frontend  # Update this to reflect the frontend repo
+    ports:
+      - "80:80"
+    networks:
+      - my-network
+
+  backend:
+    image: arunbaz/sports-manager:backend  # Correct repository format for backend
+    ports:
+      - "3000:3000"
+    environment:
+      - DB_HOST=mysql-container
+      - DB_USER=root
+      - DB_PASSWORD=password123
+      - DB_NAME=events_db
+    networks:
+      - my-network
+    depends_on:
+      - mysql
+    ports:
+      - "3306:3306"
+networks:
+  my-network:
+    driver: overlay
+
+
+
